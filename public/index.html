@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="" style="background: #000;">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+    	.el-table th.el-table__cell>.cell{font-weight: normal;line-height: 18px;padding-left: 5px!important;padding-right: 5px!important;white-space:nowrap;text-overflow:initial!important;}
+      .el-dropdown-menu{background-color: #383431!important;border-color: #383431!important;}
+      .el-dropdown-menu__item{color: #fff!important;}
+      .el-popper[x-placement^=bottom] .popper__arrow::after{border-bottom-color:#383431!important;}
+      .el-popper[x-placement^=bottom] .popper__arrow{border-bottom-color:#383431!important;}
+       .el-dropdown-menu__item:hover{background: #84c225!important;color: #fff!important;}
+      .el-pagination{text-align: center!important;margin-top: 30px;}
+      .el-pagination button:disabled{background-color: #bcd93d!important;color: #fff!important;}
+      .el-pager li{margin: 0 5px!important;background: #bcd93d!important;color: #fff!important;}
+      .el-pager li.active{color: #e77817!important;background: #84c225!important;}
+      body,html{font-family: "微软雅黑",Microsoft JhengHei;}
+      .el-progress__text{color: #fff!important;}
+      .el-table .cell{white-space:nowrap!important;word-break:normal!important;text-overflow:initial!important;}
+      .el-table thead{color: #000!important;}
+      .el-table{border-top: 1px solid #EBEEF5;color: #000!important;}
+     
+      @media (max-width:767px) {
+      	.el-table th.el-table__cell>.cell{font-size: 12px!important;}
+      	
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

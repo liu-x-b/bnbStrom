@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 24" width="132" height="24">
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="M0,24h28v-24h-28z" />
+		</clipPath>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.txt0 { font-size: 19px;fill: #ffffff;font-family: "Source Han Sans SC Bold";font-weight: 700 } 
+		.shp1 { fill: #7a077f } 
+		.shp2 { fill: #1295c9 } 
+		.shp3 { fill: #5c1264 } 
+	</style>
+	<text id="BNBStorm " style="transform: matrix(1,0,0,1,33.777,17.621)" >
+		<tspan x="0" y="0" class="txt0">BNBStorm</tspan>
+	</text>
+	<g id="Clip-Path" clip-path="url(#cp1)">
+		<g id="Layer">
+			<path id="Layer" class="shp1" d="M14.94,0c-0.8,0 -1.54,0.27 -1.99,0.71l-6.66,6.67c-0.45,0.44 -1.19,0.71 -1.99,0.71h-4.3v3.27h5.85c0.8,0 1.54,-0.27 1.99,-0.71l6.66,-6.66c0.45,-0.44 1.19,-0.71 1.99,-0.71h2.82v-3.28z" />
+			<path id="Layer" class="shp2" d="M13.06,24c0.8,0 1.54,-0.27 1.99,-0.71l6.66,-6.66c0.45,-0.44 1.19,-0.71 1.99,-0.71h4.3v-3.28h-5.85c-0.8,0 -1.54,0.27 -1.99,0.71l-6.66,6.66c-0.45,0.44 -1.19,0.71 -1.99,0.71h-2.82v3.27h4.36z" />
+			<path id="Layer" class="shp3" d="M28,6.06h-9.68c-0.8,0 -1.54,0.27 -1.99,0.71l-6.65,6.66c-0.45,0.44 -1.19,0.71 -1.99,0.71h-7.53c-0.06,0 -0.11,0 -0.18,0v3.25c0.06,0 0.11,0 0.18,0h10.06c0.8,0 1.54,-0.27 1.99,-0.71l6.65,-6.66c0.45,-0.44 1.19,-0.71 1.99,-0.71h7.13v-3.25z" />
+		</g>
+	</g>
+</svg>

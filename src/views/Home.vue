@@ -96,9 +96,14 @@
                   id="js-slider">
                   <div class="slider-range-inverse" :style="'width:'+ moveLengthSub +'%;'"></div>
                   <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 100%;">
-                  </div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                    :style="'left:' + moveLength+'%;'" 
-            @mousedown="handleDragStart"><span class="mark" id="depositPeriodDays">{{day}}</span><span class="dot"><span
+                  </div>
+                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                    :style="'left:' + moveLength+'%;'"  v-if="ispc"
+            @mousedown="handleDragStartPc"><span class="mark" id="depositPeriodDays">{{day}}</span><span class="dot"><span
+                        class="handle-track" style="width: 294px; left: -88.2px;"></span></span></span>
+                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                    :style="'left:' + moveLength+'%;'"  v-else
+            @touchstart="handleDragStart" @touchmove="touchmoveFn"><span class="mark" id="depositPeriodDays">{{day}}</span><span class="dot"><span
                         class="handle-track" style="width: 294px; left: -88.2px;"></span></span></span>
                 </div>
                 <ul id="tickmarks" class="datalist">
@@ -532,7 +537,9 @@
 <script>
 	import { ethers } from "ethers";
 	import big from "big.js";
-	import { NumSplic } from "../unit/tool";
+    import { NumSplic } from "../unit/tool";
+    import tp from 'tp-js-sdk'
+
     big.NE = -40
     big.PE = 40
 	export default {
@@ -542,6 +549,8 @@
                 curtain: false, 
                 
                 address: require('../unit/address.json'),
+
+                ispc : true,
                 
 				myAddress: undefined,
 				// 模式切换
@@ -567,7 +576,8 @@
                 day:7,
 
                 isMouseDown: false,
-                originX: 0,
+                originX: null,
+                lockX: 0,
                 originY: 0,
                 slider: null,
                 sliderMask: null,
@@ -587,7 +597,7 @@
             },
 			// 连接钱包
 			linkPay() {
-                if(window.tronWeb){ 
+                if(window.tronWeb && window.tronWeb.defaultAddress.base58){ 
 
                   this.tronWeb =  window.tronWeb;
                   
@@ -595,7 +605,9 @@
                   console.log(this.walletAddress.length)
                   this.myAddress = this.walletAddress.substr(0, 4) + "..." + this.walletAddress.substr(30, 4); 
                   this.create()
-                } 
+                } else {
+                    tp.getWallet({walletTypes: ['tron'], switch: true}).then(console.log)
+                }
             },
             
             //查询USDT余额
@@ -698,22 +710,30 @@
                     }, function (e) {
                     })
             },
- 
-            handleDragStart(e) {
+            // pc
+            handleDragStartPc(e) {
+                console.log('laile')
+                if (this.originX == null) {
+                    this.lockX = e.clientX || e.touches[0].clientX;
+                }
               this.originX = e.clientX || e.touches[0].clientX;
               this.originY = e.clientY || e.touches[0].clientY;
+
               this.isMouseDown = true;
+
               document.onmousemove = (ev) => {
-                if (!this.isMouseDown) return false;
-                const w = this.width;
+                if (!this.isMouseDown) return false; 
                 // 获取拖拽移动的距离
                 const eventX = ev.clientX || ev.touches[0].clientX;
                 const moveX = eventX - this.originX;
-                if (moveX < 0 || moveX + 40 >= w) return false;
+
                 let fatherWidth =  window.document.getElementById("js-slider").offsetWidth
                 if(moveX > fatherWidth ) return false;
-                this.day = 7 + Number(Number(moveX / fatherWidth *23).toFixed(0))
-                this.moveLength = moveX / fatherWidth *100
+                let testDay = 7 + Number(Number((eventX - this.lockX) / fatherWidth *23).toFixed(0))
+                if(testDay < 7 || testDay > 30) return false;
+                if(eventX > (fatherWidth + this.lockX  * 0.95)) return false;
+                this.day = testDay
+                this.moveLength =  (eventX - this.lockX) / fatherWidth *100
                 this.moveLengthSub = 100 -this.moveLength 
               };
               document.onmouseup = (ev) => {
@@ -723,9 +743,44 @@
                 if (eventX === this.originX) return false;
               }; 
             },  
+
+
+            // move 
+            handleDragStart(e) { 
+                if (this.originX == null) {
+                    this.lockX = e.clientX || e.touches[0].clientX;
+                }
+              this.originX = e.clientX || e.touches[0].clientX;
+              this.originY = e.clientY || e.touches[0].clientY;
+              this.isMouseDown = true;
+              
+                  
+              document.onmouseup = (ev) => {
+                  console.log("------------------")
+                if (!this.isMouseDown) return false;
+                this.isMouseDown = false;
+                const eventX = ev.clientX || ev.changedTouches[0].clientX;
+                if (eventX === this.originX) return false;
+              }; 
+            },  
+            touchmoveFn (ev)  {
+                if (!this.isMouseDown) return false; 
+                // 获取拖拽移动的距离
+                const eventX = ev.clientX || ev.touches[0].clientX;
+
+                const moveX = eventX - this.originX;  
+                let fatherWidth =  window.document.getElementById("js-slider").offsetWidth
+                if(moveX > fatherWidth ) return false;
+                let testDay = 7 + Number(Number((eventX - this.lockX) / fatherWidth *23).toFixed(0))
+                if(testDay < 7 || testDay > 30) return false;
+                if(eventX > (fatherWidth + this.lockX  * 0.95)) return false;
+                this.day = testDay
+                this.moveLength =  (eventX - this.lockX) / fatherWidth *100
+                this.moveLengthSub = 100 -this.moveLength 
+              },
             create() {  
-	        // 	clearInterval(this.fn);
-	        // 	this.fn = setInterval(this.whileFN, 3000);
+	        	clearInterval(this.fn);
+	        	this.fn = setInterval(this.whileFN, 3000);
                 this.viewUserInfo()
                 this.getTokenBalance()
                 this.getTokenAllowance()
@@ -746,11 +801,22 @@
                 	window.clearInterval(this.Inval);
                 }
             }, 1000); 
+
+            
+            let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+            if (flag) {
+                this.ispc = false
+            } else {
+                this.ispc = true
+            }
+ 
+
+
 		},
 
 		beforeDestroy() {
 			// clearInterval(this.timer);
-			// clearInterval(this.fn);
+			clearInterval(this.fn);
 		},
 	};
 </script>

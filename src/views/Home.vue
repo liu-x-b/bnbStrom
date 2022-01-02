@@ -316,7 +316,7 @@
         </div>
         <div class="container-footer-btn">
           <button type="button" id="contractLink" class="pink-btn footer-btn-contact">
-              <a href="https://tronscan.org/#/contract/TD4UwbuyYAbmWCMCxJ881WEvu6d92PAkWt/code" target="_blank">Smartcontract</a>
+              <a href="https://tronscan.org/#/contract/TXq7iiVq5syHH4xtyTWWAPUpWeXGvJnV6m/code" target="_blank">Smartcontract</a>
               </button>
           <div class="container-list-contact">
             <button type="button" class="btn-contact faq-btn">

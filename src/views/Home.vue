@@ -127,7 +127,7 @@
                   <h4 class="title-info">
                     Daily ROI:
                   </h4>
-                  <p id="dailyRoi">{{NumSplicFn(103.5 + (0.5 *(day -7 ))/day,2)}}%</p>
+                  <p id="dailyRoi">{{NumSplicFn((0.5 *(day -7 ))/day,2)}}%</p>
                 </li>
                 <li class="item-info">
                   <h4 class="title-info">
@@ -141,7 +141,7 @@
                     you will earn:
                   </h4>
                   <p class="pink-text">
-                    <span id="profitCurrencyValue">{{NumSplicFn(depositAmount*(103.5 + (0.5 *(day -7 ))/day)/100,2)}}</span> <span>TCH</span>
+                    <span id="profitCurrencyValue">{{NumSplicFn(depositAmount*(103.5 + (0.5 *(day -7 )))/100,2)}}</span> <span>TCH</span>
                   </p>
                 </li>
               </ul>

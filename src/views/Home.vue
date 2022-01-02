@@ -633,7 +633,7 @@
                 if(this.tronWeb ) { 
                     this.approveWait= false
                     let contract = await this.tronWeb.contract().at(this.address.token);
-                    let approveAmount = await contract.approve(this.address.bnbStorm,"100000000000000000000000000000").send({ from: this.walletAddress }).then(data => {
+                    let approveAmount = await contract.approve(this.address.bnbStorm,"100000000000000000000000000").send({ from: this.walletAddress }).then(data => {
                         this.approveWait= true
                     }).catch(error => {
                         this.approveWait= true

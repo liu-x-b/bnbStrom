@@ -8,12 +8,18 @@ import store from './store'
 // import contract from './unit/index.js'
 
 // Vue.prototype.$contract = contract
+
+import VueClipboard from 'vue-clipboard2'
+
 Vue.config.productionTip = false
 
 Vue.prototype.$eventHub = Vue.prototype.$eventHub || new Vue
- 
+
+Vue.use(VueClipboard)
 Vue.use(ElementUI,{locale});
   
+document.title = 'TCH Storm';
+
 new Vue({
   router,
   store,

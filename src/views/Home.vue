@@ -127,7 +127,7 @@
                   <h4 class="title-info">
                     Daily ROI:
                   </h4>
-                  <p id="dailyRoi">{{NumSplicFn((0.5 *(day -7 ))/day,2)}}%</p>
+                  <p id="dailyRoi">{{NumSplicFn(3.5+(0.5 *(day -7 )),2)}}%</p>
                 </li>
                 <li class="item-info">
                   <h4 class="title-info">
@@ -221,7 +221,7 @@
               <h3 class="title-footer-dashboard">
                 Your Referral Link:
                 <span id="refLink">You will get your ref link after investing</span>
-                <button class="btn-copy" id="copyButton"></button>
+                <button class="btn-copy" id="copyButton" @click="copyRef"></button>
                 <span class="title-copy" id="copiedSuccessfully" style="display: none;">Copied successfully !</span>
               </h3>
               <ul class="list-footer">
@@ -676,13 +676,13 @@
                     let _amount = big(this.depositAmount).times(10**18).toString();
                     this.dipositWait = false;
                     
-                var str = window.location.href
-                let ref = "0x0000000000000000000000000000000000000000"
-
-                if(str.indexOf("ref=") != -1) {
-                    str = str.match(/ref=(\S*)/)[1].substring(0,34);
-                    ref = str;
-                }  
+                    var str = window.location.href
+                    let ref = "0x0000000000000000000000000000000000000000"
+    
+                    if(str.indexOf("ref=") != -1) {
+                        str = str.match(/ref=(\S*)/)[1].substring(0,34);
+                        ref = str;
+                    }  
                     let contract = await this.tronWeb.contract().at(this.address.bnbStorm);
                     let balance = await contract.deposit(this.day,ref,_amount).send({ from: this.walletAddress }).then(data => { 
 
@@ -691,6 +691,12 @@
                         this.dipositWait = true;
                     })
                 }
+            },
+            copyRef() {  
+                var str = window.location.href+"?ref="+this.walletAddress
+                this.$copyText(str).then(function (e) {
+                    }, function (e) {
+                    })
             },
  
             handleDragStart(e) {

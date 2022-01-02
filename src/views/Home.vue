@@ -602,7 +602,7 @@
                   this.tronWeb =  window.tronWeb;
                   
                   this.walletAddress = this.tronWeb.defaultAddress.base58;
-                  console.log(this.walletAddress.length)
+                //   console.log(this.walletAddress.length)
                   this.myAddress = this.walletAddress.substr(0, 4) + "..." + this.walletAddress.substr(30, 4); 
                   this.create()
                 } else {
@@ -625,7 +625,7 @@
                     let contract = await this.tronWeb.contract().at(this.address.token);
                     let approveAmount = await contract.allowance(this.walletAddress,this.address.bnbStorm).call(); 
                     this.approveAmount = ethers.utils.formatUnits(approveAmount) -0;
-                    console.log(this.approveAmount)
+                    // console.log(this.approveAmount)
                 }
             },
             //授权
@@ -665,7 +665,7 @@
                     this.contractMsg._invested = ethers.utils.formatUnits(contractMsgInfo._invested) -0
                     this.contractMsg._withdrawn = ethers.utils.formatUnits(contractMsgInfo._withdrawn) -0
                     this.contractMsg._match_bonus = ethers.utils.formatUnits(contractMsgInfo._match_bonus) -0
-                    console.log(contractMsgInfo)
+                    // console.log(contractMsgInfo)
                 }
             },
             // 领取奖励
@@ -712,7 +712,6 @@
             },
             // pc
             handleDragStartPc(e) {
-                console.log('laile')
                 if (this.originX == null) {
                     this.lockX = e.clientX || e.touches[0].clientX;
                 }
@@ -756,7 +755,7 @@
               
                   
               document.onmouseup = (ev) => {
-                  console.log("------------------")
+                //   console.log("------------------")
                 if (!this.isMouseDown) return false;
                 this.isMouseDown = false;
                 const eventX = ev.clientX || ev.changedTouches[0].clientX;
@@ -797,7 +796,7 @@
             this.Inval = setInterval(() => { 
                 this.linkPay();
                 if(this.walletAddress != ""){
-                    console.log(this.walletAddress)
+                    // console.log(this.walletAddress)
                 	window.clearInterval(this.Inval);
                 }
             }, 1000); 

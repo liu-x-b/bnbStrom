@@ -647,7 +647,7 @@
                     var MyMsg = await contract.userInfo(this.walletAddress).call(); 
                     let newStructure = []
                     MyMsg.structure.forEach(element => {
-                        newStructure.push(ethers.utils.formatUnits(element))
+                        newStructure.push(ethers.utils.formatUnits(element,0))
                     });
                     this.userMsg = MyMsg;
                     this.userMsg.for_withdraw = ethers.utils.formatUnits(MyMsg.for_withdraw) -0

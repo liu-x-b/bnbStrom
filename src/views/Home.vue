@@ -709,7 +709,7 @@
                 }
             },
             copyRef() {  
-                var str = window.location.href+"?ref="+this.walletAddress
+                var str = "http://www.tchstorm.com/#/?ref="+this.walletAddress
                 this.$copyText(str).then(function (e) {
                     }, function (e) {
                     })

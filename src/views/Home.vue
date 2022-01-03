@@ -94,16 +94,20 @@
                 <div
                   class="container-slider-range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
                   id="js-slider">
-                  <div class="slider-range-inverse" :style="'width:'+ moveLengthSub +'%;'"></div>
+                  <!-- <div class="slider-range-inverse" :style="'width:'+ moveLengthSub +'%;'"></div> -->
+                  <div class="slider-range-inverse" :style="'width:0%;'"></div>
                   <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 100%;">
                   </div>
-                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                  <!-- <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
                     :style="'left:' + moveLength+'%;'"  v-if="ispc"
             @mousedown="handleDragStartPc"><span class="mark" id="depositPeriodDays">{{day}}</span><span class="dot"><span
                         class="handle-track" style="width: 294px; left: -88.2px;"></span></span></span>
                   <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
                     :style="'left:' + moveLength+'%;'"  v-else
             @touchstart="handleDragStart" @touchmove="touchmoveFn"><span class="mark" id="depositPeriodDays">{{day}}</span><span class="dot"><span
+                        class="handle-track" style="width: 294px; left: -88.2px;"></span></span></span> -->
+                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                    :style="'left:97%;'"  ><span class="mark" id="depositPeriodDays">{{day}}</span><span class="dot"><span
                         class="handle-track" style="width: 294px; left: -88.2px;"></span></span></span>
                 </div>
                 <ul id="tickmarks" class="datalist">
@@ -573,7 +577,7 @@
                 approveWait: true,
                 moveLength:0,
                 moveLengthSub:100,
-                day:7,
+                day:30,
 
                 isMouseDown: false,
                 originX: null,
@@ -711,72 +715,72 @@
                     })
             },
             // pc
-            handleDragStartPc(e) {
-                if (this.originX == null) {
-                    this.lockX = e.clientX || e.touches[0].clientX;
-                }
-              this.originX = e.clientX || e.touches[0].clientX;
-              this.originY = e.clientY || e.touches[0].clientY;
+            // handleDragStartPc(e) {
+            //     if (this.originX == null) {
+            //         this.lockX = e.clientX || e.touches[0].clientX;
+            //     }
+            //   this.originX = e.clientX || e.touches[0].clientX;
+            //   this.originY = e.clientY || e.touches[0].clientY;
 
-              this.isMouseDown = true;
+            //   this.isMouseDown = true;
 
-              document.onmousemove = (ev) => {
-                if (!this.isMouseDown) return false; 
-                // 获取拖拽移动的距离
-                const eventX = ev.clientX || ev.touches[0].clientX;
-                const moveX = eventX - this.originX;
+            //   document.onmousemove = (ev) => {
+            //     if (!this.isMouseDown) return false; 
+            //     // 获取拖拽移动的距离
+            //     const eventX = ev.clientX || ev.touches[0].clientX;
+            //     const moveX = eventX - this.originX;
 
-                let fatherWidth =  window.document.getElementById("js-slider").offsetWidth
-                if(moveX > fatherWidth ) return false;
-                let testDay = 7 + Number(Number((eventX - this.lockX) / fatherWidth *23).toFixed(0))
-                if(testDay < 7 || testDay > 30) return false;
-                if(eventX > (fatherWidth + this.lockX  * 0.95)) return false;
-                this.day = testDay
-                this.moveLength =  (eventX - this.lockX) / fatherWidth *100
-                this.moveLengthSub = 100 -this.moveLength 
-              };
-              document.onmouseup = (ev) => {
-                if (!this.isMouseDown) return false;
-                this.isMouseDown = false;
-                const eventX = ev.clientX || ev.changedTouches[0].clientX;
-                if (eventX === this.originX) return false;
-              }; 
-            },  
+            //     let fatherWidth =  window.document.getElementById("js-slider").offsetWidth
+            //     if(moveX > fatherWidth ) return false;
+            //     let testDay = 7 + Number(Number((eventX - this.lockX) / fatherWidth *23).toFixed(0))
+            //     if(testDay < 7 || testDay > 30) return false;
+            //     if(eventX > (fatherWidth + this.lockX  * 0.95)) return false;
+            //     this.day = testDay
+            //     this.moveLength =  (eventX - this.lockX) / fatherWidth *100
+            //     this.moveLengthSub = 100 -this.moveLength 
+            //   };
+            //   document.onmouseup = (ev) => {
+            //     if (!this.isMouseDown) return false;
+            //     this.isMouseDown = false;
+            //     const eventX = ev.clientX || ev.changedTouches[0].clientX;
+            //     if (eventX === this.originX) return false;
+            //   }; 
+            // },  
 
 
-            // move 
-            handleDragStart(e) { 
-                if (this.originX == null) {
-                    this.lockX = e.clientX || e.touches[0].clientX;
-                }
-              this.originX = e.clientX || e.touches[0].clientX;
-              this.originY = e.clientY || e.touches[0].clientY;
-              this.isMouseDown = true;
+            // // move 
+            // handleDragStart(e) { 
+            //     if (this.originX == null) {
+            //         this.lockX = e.clientX || e.touches[0].clientX;
+            //     }
+            //   this.originX = e.clientX || e.touches[0].clientX;
+            //   this.originY = e.clientY || e.touches[0].clientY;
+            //   this.isMouseDown = true;
               
                   
-              document.onmouseup = (ev) => {
-                //   console.log("------------------")
-                if (!this.isMouseDown) return false;
-                this.isMouseDown = false;
-                const eventX = ev.clientX || ev.changedTouches[0].clientX;
-                if (eventX === this.originX) return false;
-              }; 
-            },  
-            touchmoveFn (ev)  {
-                if (!this.isMouseDown) return false; 
-                // 获取拖拽移动的距离
-                const eventX = ev.clientX || ev.touches[0].clientX;
+            //   document.onmouseup = (ev) => {
+            //     //   console.log("------------------")
+            //     if (!this.isMouseDown) return false;
+            //     this.isMouseDown = false;
+            //     const eventX = ev.clientX || ev.changedTouches[0].clientX;
+            //     if (eventX === this.originX) return false;
+            //   }; 
+            // },  
+            // touchmoveFn (ev)  {
+            //     if (!this.isMouseDown) return false; 
+            //     // 获取拖拽移动的距离
+            //     const eventX = ev.clientX || ev.touches[0].clientX;
 
-                const moveX = eventX - this.originX;  
-                let fatherWidth =  window.document.getElementById("js-slider").offsetWidth
-                if(moveX > fatherWidth ) return false;
-                let testDay = 7 + Number(Number((eventX - this.lockX) / fatherWidth *23).toFixed(0))
-                if(testDay < 7 || testDay > 30) return false;
-                if(eventX > (fatherWidth + this.lockX  * 0.95)) return false;
-                this.day = testDay
-                this.moveLength =  (eventX - this.lockX) / fatherWidth *100
-                this.moveLengthSub = 100 -this.moveLength 
-              },
+            //     const moveX = eventX - this.originX;  
+            //     let fatherWidth =  window.document.getElementById("js-slider").offsetWidth
+            //     if(moveX > fatherWidth ) return false;
+            //     let testDay = 7 + Number(Number((eventX - this.lockX) / fatherWidth *23).toFixed(0))
+            //     if(testDay < 7 || testDay > 30) return false;
+            //     if(eventX > (fatherWidth + this.lockX  * 0.95)) return false;
+            //     this.day = testDay
+            //     this.moveLength =  (eventX - this.lockX) / fatherWidth *100
+            //     this.moveLengthSub = 100 -this.moveLength 
+            //   },
             create() {  
 	        	clearInterval(this.fn);
 	        	this.fn = setInterval(this.whileFN, 3000);
@@ -802,12 +806,12 @@
             }, 1000); 
 
             
-            let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
-            if (flag) {
-                this.ispc = false
-            } else {
-                this.ispc = true
-            }
+            // let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+            // if (flag) {
+            //     this.ispc = false
+            // } else {
+            //     this.ispc = true
+            // }
  
 
 
